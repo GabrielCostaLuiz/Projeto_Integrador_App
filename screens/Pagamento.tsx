@@ -22,8 +22,12 @@ let vl = "";
 let qp = 0;
 let vp = "";
 let total = "";
+let listarprodutos = [{}];
+let qt = 0;
 
-export default function Pagamento() {
+export default function Pagamento({route}) {
+  const{qtd}=route.params; 
+  qt = qtd;
   return (
     <Stack.Navigator initialRouteName="TelaPagamento">
       <Stack.Screen name="TelaPagamento" component={TelaPagamento} />
@@ -33,6 +37,7 @@ export default function Pagamento() {
 }
 
 function TelaPagamento({navigation}) {
+  // alert(qt);
   const [tipo, setTipo] = React.useState("");
   const [parcelas, setParcelas] = React.useState(1);
   const [idcliente, setIdCliente] = React.useState(0);
@@ -43,6 +48,11 @@ function TelaPagamento({navigation}) {
   const [descricao, setDescricao] = React.useState("");
   const [valor, setValor] = React.useState("");
   const [vParcela, setVParcelas] = React.useState("");
+  const [lstprodutos,setLstprodutos] = React.useState([{
+    idproduto:0,
+    quantidade:0
+  }]);
+
 
   React.useEffect(() => {
     db.transaction((tx) => {
@@ -58,18 +68,26 @@ function TelaPagamento({navigation}) {
       //db.transaction((tl)=> {
       tx.executeSql("select * from itens", [], (_, { rows: { _array } }) => {
         setProdutos(_array);
-        console.log(_array);
+        // listarprodutos.push(produtos.idproduto);
+        console.log("------------------------");
+        console.log(listarprodutos);
+        produtos.map((dados,index)=>{
+        console.log(dados);
+        setLstprodutos([{idproduto:21,quantidade:3}]);
+        });
+        // tx.executeSql("update itens set quantidade = ?", [qt]);
       });
+console.log(lstprodutos);
+listarprodutos = lstprodutos;
 
-
-      
+    
     //Vamos fazer uma nova consulta para calcular o valor total dos produtos no carrinho
     //db.transaction((tn)=> {
     tx.executeSql(
         "select sum(preco) as total from itens",
         [],
         (_, { rows: { _array } }) => {
-          setValor(_array[0].total.toString());
+          setValor((_array[0].total*qt).toString());
           console.log(_array[0].total.toString());
         }
       );
@@ -274,6 +292,7 @@ function efetuarPagamento() {
       valor: vl,
       parcelas: qp,
       valorparcela: vp,
+      produtos:listarprodutos
     }),
   })
     .then((response) => response.json())

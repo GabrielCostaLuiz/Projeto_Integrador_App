@@ -30,7 +30,7 @@ const wait = (timeout) => {
 
  function Carrinho({ navigation }) {
   const [dados, setDados] = React.useState([]);
-  //const [quantidade, setQuantidade] = React.useState(1);
+  const [quantidade, setQuantidade] = React.useState(1);
 
   //-- vamos criar uma constante para realizar o refresh (atualização da tela)
   const [refreshing,setRefreshing] = React.useState(false);
@@ -74,13 +74,13 @@ const wait = (timeout) => {
           />
           <Text style={tela.letra2}>Produto: {nomeproduto}</Text>
           <Text style={tela.letra2}>Preço: R${preco}</Text>
-          {/* <Text style={tela.letra2}>Quantidade:</Text> */}
-          {/* <TextInput
+           <Text style={tela.letra2}>Quantidade:</Text> 
+           <TextInput
             placeholder="1"
             value={quantidade}
             onChangeText={(value) => setQuantidade(value)}
             style={{backgroundColor:"white",color:"blue",width:30}}
-          /> */}
+          /> 
           <TouchableOpacity
           style={tela.btntira}
             onPress={() => {
@@ -96,7 +96,9 @@ const wait = (timeout) => {
       ))}
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Pagamento");
+          navigation.navigate("Pagamento",{
+            qtd:`${quantidade}`
+          });
         }}
       >
         <Text style={tela.pagamento}>Ir para pagamento</Text>
@@ -184,7 +186,7 @@ const tela = StyleSheet.create({
   },
 
   letra2:{
-    fontSize:18
-
+    fontSize:18,
+    color:"white"
   },
 });

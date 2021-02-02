@@ -148,19 +148,18 @@ const db = SQLite.openDatabase("appvendadb.banco");
 function adicionarAoCarrinho(id, nome, preco, foto) {
   db.transaction((tx) => {
     tx.executeSql(
-      "create table if not exists itens(id integer primary key,idproduto int,nomeproduto text, preco text, foto text);"
-    );
+      "create table if not exists itens(id integer primary key,idproduto int,nomeproduto text, preco text, quantidade int, foto text);"
+      );
   });
 
   db.transaction((tx) => {
     tx.executeSql(
-      "insert into itens(idproduto,nomeproduto,preco,foto)values(?,?,?,?)",
-      [id, nome, preco, foto]
+      "insert into itens(idproduto,nomeproduto,preco,quantidade,foto)values(?,?,?,?,?)",
+      [id, nome, preco, 1, foto]
     );
     tx.executeSql("select * from itens", [], (_, { rows }) => {
       console.log(JSON.stringify(rows));
     });
-    //tx.executeSql("drop table perfil");
     alert("Adicionado ao carrinho, atualize a página do carrinho arrastando para cima");
   });
 }
