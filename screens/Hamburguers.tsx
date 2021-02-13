@@ -1,6 +1,7 @@
 import { template } from "@babel/core";
 import { Foundation } from "@expo/vector-icons";
 import * as React from "react";
+import {host} from '../config/settings';;
 import { Text, View } from "../components/Themed";
 import {
   ImageBackground,
@@ -35,7 +36,7 @@ function Produtos({ navigation }) {
 
   React.useEffect(() => {
     fetch(
-      "http://192.168.0.13/projetoApi/services/produto/listarhamburguers.php"
+      `${host}/ProjetoApi/services/produto/listarhamburguers.php`
     )
       .then((response) => response.json())
       .then((nome) => setDados(nome.saida)) /* muda o nome dps*/
@@ -61,7 +62,7 @@ function Produtos({ navigation }) {
                 <Text style={tela.letraproduto}>🍔{item.nomeproduto}🍔</Text>
                 <Image
                   source={{
-                    uri: `http://192.168.0.13/projetoApi/img/${item.foto}`,
+                    uri: `${host}/ProjetoApi/img/${item.foto}`,
                   }}
                   style={tela.img}
                 />

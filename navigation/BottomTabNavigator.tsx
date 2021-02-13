@@ -18,7 +18,7 @@ import Perfil from "../screens/Perfil";
 import Carrinho from "../screens/Carrinho";
 import Hamburguers from "../screens/Hamburguers";
 //import Pagamento from "../screens/Pagamento";
-import PedidosRealizados from "../screens/PedidosRealizados";
+// import PedidosRealizados from "../screens/PedidosRealizados";
 
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
 
@@ -60,7 +60,7 @@ export default function BottomTabNavigator() {
         }}
       />
 
-      <BottomTab.Screen
+      {/* <BottomTab.Screen
         name="PedidosRealizados"
         component={PedidosRealizadosNavigador}
         options={{
@@ -68,7 +68,7 @@ export default function BottomTabNavigator() {
             <TabBarIconI name="ios-list" color={color} />
           ),
         }}
-      />
+      /> */}
 
       <BottomTab.Screen
         name="Perfil"
@@ -114,7 +114,7 @@ const InicialStack = createStackNavigator();
 const PerfilStack = createStackNavigator();
 const CarrinhoStack = createStackNavigator();
 const HamburguersStack = createStackNavigator();
-const PedidosRealizadosStack = createStackNavigator();
+// const PedidosRealizadosStack = createStackNavigator();
 //const PagamentoStack = createStackNavigator();
 
 function CadastrarNavigator() {
@@ -123,7 +123,7 @@ function CadastrarNavigator() {
       <CadastrarStack.Screen
         name="Cadastrar"
         component={Cadastrar}
-        options={{ headerTitle: "🍔 Cadastro 🍔", headerTitleAlign: "center" }}
+        options={{ headerTitle: "🍔 Cadastro 🍔", headerTitleAlign: "center", headerShown:false}}
       />
     </CadastrarStack.Navigator>
   );
@@ -135,7 +135,7 @@ function LoginNavigator() {
       <LoginStack.Screen
         name="Login"
         component={Login}
-        options={{ headerTitle: "🍔 Login 🍔", headerTitleAlign: "center" }}
+        options={{ headerTitle: "🍔 Login 🍔", headerTitleAlign: "center", headerShown:false }}
       />
     </LoginStack.Navigator>
   );
@@ -147,7 +147,7 @@ function InicialNavigator() {
       <InicialStack.Screen
         name="Inicial"
         component={Inicial}
-        options={{ headerTitle: "🍔 Inicial 🍔", headerTitleAlign: "center" }}
+        options={{ headerTitle: "🍔 Inicial 🍔", headerTitleAlign: "center", headerShown:false }}
       />
     </InicialStack.Navigator>
   );
@@ -159,7 +159,7 @@ function PerfilNavigator() {
       <PerfilStack.Screen
         name="Perfil"
         component={Perfil}
-        options={{ headerTitle: "🍔 Perfil 🍔", headerTitleAlign: "center" }}
+        options={{ headerTitle: "🍔 Perfil 🍔", headerTitleAlign: "center", headerShown:false }}
       />
     </PerfilStack.Navigator>
   );
@@ -171,23 +171,23 @@ function CarrinhoNavigator() {
       <CarrinhoStack.Screen
         name="Carrinho"
         component={Carrinho}
-        options={{ headerTitle: "🍔 Carrinho 🍔", headerTitleAlign: "center" }}
+        options={{ headerTitle: "🍔 Carrinho 🍔", headerTitleAlign: "center", headerShown:false }}
       />
     </CarrinhoStack.Navigator>
   );
 }
 
-function PedidosRealizadosNavigador() {
-  return (
-    <PedidosRealizadosStack.Navigator>
-      <PedidosRealizadosStack.Screen
-        name="PedidosRealizados"
-        component={PedidosRealizados}
-        options={{ headerTitle: "🍔 Pedidos Realizados 🍔", headerTitleAlign: "center" }}
-      />
-    </PedidosRealizadosStack.Navigator>
-  );
-}
+// function PedidosRealizadosNavigador() {
+//   return (
+//     <PedidosRealizadosStack.Navigator>
+//       <PedidosRealizadosStack.Screen
+//         name="PedidosRealizados"
+//         component={PedidosRealizados}
+//         options={{ headerTitle: "🍔 Pedidos Realizados 🍔", headerTitleAlign: "center", headerShown:false }}
+//       />
+//     </PedidosRealizadosStack.Navigator>
+//   );
+// }
 
 function HamburguersNavigator() {
   return (
@@ -197,7 +197,7 @@ function HamburguersNavigator() {
         component={Hamburguers}
         options={{
           headerTitle: "🍔 Hamburguers 🍔",
-          headerTitleAlign: "center",
+          headerTitleAlign: "center", headerShown:false
         }}
       />
     </HamburguersStack.Navigator>

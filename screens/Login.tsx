@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
+import {host} from '../config/settings';
 import {
   View,
   Text,
@@ -26,9 +27,9 @@ let sh = "";
 export default function Login() {
 return(
   <Stack.Navigator initialRouteName="TelaLogin">
-    <Stack.Screen name="Telalogin" component={TelaLogin}/>
+    <Stack.Screen name="Tela login" component={TelaLogin}/>
     <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} options={{headerTitle:"AppBurguer"}}/>
-    <Stack.Screen name="Cadastrar" component={Cadastrar}/>
+    <Stack.Screen name="Cadastrar" component={Cadastrar} options={{headerShown:false}}/>
   </Stack.Navigator>
 );
 }
@@ -92,15 +93,10 @@ function TelaLogin({navigation}){
     </View>
   );
 
-  <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen name="Cadastrar" component={Cadastrar} />
-    </Stack.Navigator>
-  </NavigationContainer>;
-}
+  }
 
 function logar() {
-  fetch("http://192.168.0.13/projetoApi/services/usuario/login.php", {
+  fetch(`${host}/ProjetoApi/services/usuario/login.php`, {
     method: "POST",
     headers: {
       Accept: "application/json",

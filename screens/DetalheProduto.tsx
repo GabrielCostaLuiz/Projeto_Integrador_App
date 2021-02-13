@@ -1,4 +1,5 @@
 import * as React from "react";
+import {host} from '../config/settings';
 import { Text, View } from "../components/Themed";
 import {
   ActivityIndicator,
@@ -17,7 +18,7 @@ export default function DetalheProduto({ route }) {
 
   React.useEffect(() => {
     fetch(
-      `http://192.168.0.13/projetoApi/services/produto/detalheproduto.php?idproduto=${idproduto}`
+      `${host}/ProjetoApi/services/produto/detalheproduto.php?idproduto=${idproduto}`
     )
       .then((response) => response.json())
       .then((produto) => setDados(produto.saida))
@@ -43,7 +44,7 @@ export default function DetalheProduto({ route }) {
                 <Text style={tela.letraproduto}>🍔{item.nomeproduto}🍔</Text>
                 <Image
                   source={{
-                    uri: `http://192.168.0.13/projetoApi/img/${item.foto}`,
+                    uri: `${host}/ProjetoApi/img/${item.foto}`,
                   }}
                   style={tela.img}
                 />
@@ -160,6 +161,6 @@ function adicionarAoCarrinho(id, nome, preco, foto) {
     tx.executeSql("select * from itens", [], (_, { rows }) => {
       console.log(JSON.stringify(rows));
     });
-    alert("Adicionado ao carrinho, atualize a página do carrinho arrastando para cima");
+    alert("Adicionado ao carrinho, atualize a página do carrinho arrastando para baixo");
   });
 }

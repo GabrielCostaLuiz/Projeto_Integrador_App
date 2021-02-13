@@ -1,4 +1,5 @@
 import * as React from "react";
+import {host} from '../config/settings';
 import { Text, View } from "../components/Themed";
 
 import * as SQLite from "expo-sqlite";
@@ -15,7 +16,7 @@ export default function Carrinhoo(){
 return (
   <Stack.Navigator initialRouteName="Carrinho">
     <Stack.Screen name="Carrinho" component={Carrinho} />
-    <Stack.Screen name="Pagamento" component={Pagamento} />
+    <Stack.Screen name="Pagamento" component={Pagamento} options={{headerShown:false}} />
   </Stack.Navigator>
 );
 }
@@ -30,7 +31,7 @@ const wait = (timeout) => {
 
  function Carrinho({ navigation }) {
   const [dados, setDados] = React.useState([]);
-  const [quantidade, setQuantidade] = React.useState(1);
+  // const [quantidade, setQuantidade] = React.useState(1);
 
   //-- vamos criar uma constante para realizar o refresh (atualização da tela)
   const [refreshing,setRefreshing] = React.useState(false);
@@ -61,7 +62,7 @@ const wait = (timeout) => {
       style={tela.fundo}
     >
 
-      <ScrollView /**contentContainerStyle={{flex:1}} **/
+      <ScrollView style={{flex:1}}
       refreshControl={
       <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
       }>
@@ -69,18 +70,18 @@ const wait = (timeout) => {
       {dados.map(({ id, idproduto, nomeproduto, preco, foto }) => (
         <View style={tela.container} key={idproduto}> 
           <Image
-            source={{ uri: `http://192.168.0.13/projetoApi/img/${foto}` }}
+            source={{ uri: `${host}/ProjetoApi/img/${foto}` }}
             style={tela.img}
           />
           <Text style={tela.letra2}>Produto: {nomeproduto}</Text>
           <Text style={tela.letra2}>Preço: R${preco}</Text>
-           <Text style={tela.letra2}>Quantidade:</Text> 
+           {/* <Text style={tela.letra2}>Quantidade:</Text> 
            <TextInput
             placeholder="1"
             value={quantidade}
             onChangeText={(value) => setQuantidade(value)}
             style={{backgroundColor:"white",color:"blue",width:30}}
-          /> 
+          />  */}
           <TouchableOpacity
           style={tela.btntira}
             onPress={() => {
@@ -96,9 +97,7 @@ const wait = (timeout) => {
       ))}
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Pagamento",{
-            qtd:`${quantidade}`
-          });
+          navigation.navigate("Pagamento");
         }}
       >
         <Text style={tela.pagamento}>Ir para pagamento</Text>

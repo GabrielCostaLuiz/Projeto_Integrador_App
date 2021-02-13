@@ -1,4 +1,5 @@
 import * as React from "react";
+import {host} from '../config/settings';
 import { Text, View } from "../components/Themed";
 import { Picker, StyleSheet, ImageBackground } from "react-native";
 import {
@@ -7,9 +8,11 @@ import {
   ScrollView,
 } from "react-native-gesture-handler";
 import { createStackNavigator } from "@react-navigation/stack";
+import NumberFormat from 'react-number-format';
 
 import * as SQLite from "expo-sqlite";
 import Carrinhoo from "./Carrinho";
+
 
 const db = SQLite.openDatabase("appvendadb.banco");
 
@@ -26,15 +29,16 @@ let listarprodutos = [{}];
 let qt = 0;
 
 export default function Pagamento({route}) {
-  const{qtd}=route.params; 
-  qt = qtd;
+  // const{qtd}=route.params; 
+  // qt = qtd;
   return (
     <Stack.Navigator initialRouteName="TelaPagamento">
-      <Stack.Screen name="TelaPagamento" component={TelaPagamento} />
-      <Stack.Screen name="Carrinho" component={Carrinhoo} />
+      <Stack.Screen name="TelaPagamento" component={TelaPagamento} options={{headerShown:false}}/>
+       <Stack.Screen name="Carrinho" component={Carrinhoo} options={{headerShown:false}}/> 
     </Stack.Navigator>
   );
 }
+
 
 function TelaPagamento({navigation}) {
   // alert(qt);
@@ -48,10 +52,7 @@ function TelaPagamento({navigation}) {
   const [descricao, setDescricao] = React.useState("");
   const [valor, setValor] = React.useState("");
   const [vParcela, setVParcelas] = React.useState("");
-  const [lstprodutos,setLstprodutos] = React.useState([{
-    idproduto:0,
-    quantidade:0
-  }]);
+  // const [lstprodutos,setLstprodutos] = React.useState([{}]);
 
 
   React.useEffect(() => {
@@ -73,12 +74,12 @@ function TelaPagamento({navigation}) {
         console.log(listarprodutos);
         produtos.map((dados,index)=>{
         console.log(dados);
-        setLstprodutos([{idproduto:21,quantidade:3}]);
+        // setLstprodutos([{idproduto:21,quantidade:3}]);
         });
         // tx.executeSql("update itens set quantidade = ?", [qt]);
       });
-console.log(lstprodutos);
-listarprodutos = lstprodutos;
+// console.log(lstprodutos);
+// listarprodutos = lstprodutos;
 
     
     //Vamos fazer uma nova consulta para calcular o valor total dos produtos no carrinho
@@ -87,7 +88,7 @@ listarprodutos = lstprodutos;
         "select sum(preco) as total from itens",
         [],
         (_, { rows: { _array } }) => {
-          setValor((_array[0].total*qt).toString());
+          setValor((_array[0].total).toString());
           console.log(_array[0].total.toString());
         }
       );
@@ -169,6 +170,7 @@ listarprodutos = lstprodutos;
                 vl = valor;
                 qp = parcelas;
                 vp = vParcela;
+                listarprodutos = produtos;
                 efetuarPagamento();
 
                 navigation.navigate("Carrinho");
@@ -279,7 +281,7 @@ function efetuarPagamento() {
 
   console.log(idc+" - "+tp+" - "+ds+" - "+vl+" - "+qp+" - "+vp)
 
-  fetch("http://192.168.0.13/projetoApi/services/pagamento/cadastro.php", {
+  fetch(`${host}/ProjetoApi/services/pagamento/cadastro.php`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -298,7 +300,7 @@ function efetuarPagamento() {
     .then((response) => response.json())
     .then((resposta) => {
       console.log(resposta);
-      alert("Seu pagamento foi efetuado");
+      alert(resposta.mensagem);
     })
     .catch((error) => console.error(error));
 

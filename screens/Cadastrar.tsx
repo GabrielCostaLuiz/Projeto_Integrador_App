@@ -1,4 +1,5 @@
 import * as React from "react";
+import {host} from '../config/settings';
 import { Text, View } from "../components/Themed";
 import {
   TextInput,
@@ -36,8 +37,8 @@ const Stack = createStackNavigator();
 export default function Cadastrar() {
   return(
     <Stack.Navigator initialRouteName="TelaCadastro">
-      <Stack.Screen name="TelaCadastro" component={TelaCadastro}/>
-      <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} options={{headerTitle:"AppBurguer"}}/>
+      <Stack.Screen name="Tela Cadastro" component={TelaCadastro}/>
+      {/* <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} options={{headerTitle:"AppBurguer"}}/> */}
     </Stack.Navigator>
   );
   }
@@ -292,7 +293,7 @@ const estilo = StyleSheet.create({
 });
 
 function efetuarCadastro() {
-  fetch("http://192.168.0.13/projetoApi/services/cliente/cadastro.php", {
+  fetch(`${host}/ProjetoApi/services/cliente/cadastro.php`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -317,7 +318,7 @@ function efetuarCadastro() {
     .then((response) => response.json())
     .then((resposta) => {
       console.log(resposta);
-      Alert.alert("Olhe na tela de console");
+      Alert.alert("Caso não apareça seus dados na aba de perfil, saia do aplicativo e faça login novamente por favor!! Desculpe o transtorno ");
     })
     .catch((error) => console.error(error));
 }

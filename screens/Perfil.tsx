@@ -1,4 +1,5 @@
 import * as React from "react";
+import {host} from '../config/settings';
 import { Text, View } from "../components/Themed";
 import { RefreshControl, StyleSheet } from "react-native";
 import * as SQLite from "expo-sqlite";
@@ -16,7 +17,7 @@ export default function Perfil(){
   return (
     <Stack.Navigator initialRouteName="Perfil">
       <Stack.Screen name="TelaPerfil" component={TelaPerfil} />
-      <Stack.Screen name="Login" component={Login} />
+      {/* <Stack.Screen name="Login" component={Login} /> */}
     </Stack.Navigator>
   );
   }
